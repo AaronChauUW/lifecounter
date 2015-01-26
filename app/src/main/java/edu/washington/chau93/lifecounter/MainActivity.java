@@ -15,14 +15,11 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
     private final String TAG = "MainActivity";
-    private boolean gameOver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        gameOver = false;
 
         // Set up player 1
         final TextView p1HealthView = (TextView) findViewById(R.id.p1hp);
@@ -91,19 +88,14 @@ public class MainActivity extends ActionBarActivity {
 
     private void modifyHealth(int player, TextView playerText, int value){
         Log.d(TAG, "Player " + player + ": " + value + " button clicked.");
-        if(gameOver){
-            Log.d(TAG, "Button is pushed but game is over.");
-        } else {
-            int currHealth = Integer.parseInt(playerText.getText().toString());
-            if (currHealth > 0){
-                int newHealth = currHealth + value;
-                playerText.setText("" + newHealth);
-                if(newHealth <= 0){
-                    Log.d(TAG, "Player " + player + " is dead.");
-                    TextView loser = (TextView) findViewById(R.id.loser);
-                    loser.setText("Player " + player + " LOSES!");
-                    gameOver = true;
-                }
+        int currHealth = Integer.parseInt(playerText.getText().toString());
+        if (currHealth > 0){
+            int newHealth = currHealth + value;
+            playerText.setText("" + newHealth);
+            if(newHealth <= 0){
+                Log.d(TAG, "Player " + player + " is dead.");
+                TextView loser = (TextView) findViewById(R.id.loser);
+                loser.setText("Player " + player + " LOSES!");
             }
         }
     }
