@@ -6,6 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,16 +31,16 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:id="@+id/p1plus1"
-                android:layout_below="@+id/p1healthtag"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/p1hp"
+                android:layout_toEndOf="@+id/p1hp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:id="@+id/p1minus1"
-                android:layout_below="@+id/p1healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p1plus1"
                 android:layout_toEndOf="@+id/p1plus1" />
 
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="+5"
                 android:id="@+id/p1plus5"
-                android:layout_below="@+id/p1healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p1minus1"
                 android:layout_toEndOf="@+id/p1minus1" />
 
@@ -82,8 +83,7 @@
                 android:textSize="20dp" />
         </RelativeLayout>
     </LinearLayout>
-    
-    
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,16 +108,16 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:id="@+id/p2plus1"
-                android:layout_below="@+id/p2healthtag"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/p2hp"
+                android:layout_toEndOf="@+id/p2hp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:id="@+id/p2minus1"
-                android:layout_below="@+id/p2healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p2plus1"
                 android:layout_toEndOf="@+id/p2plus1" />
 
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:text="+5"
                 android:id="@+id/p2plus5"
-                android:layout_below="@+id/p2healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p2minus1"
                 android:layout_toEndOf="@+id/p2minus1" />
 
@@ -185,16 +185,16 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:id="@+id/p3plus1"
-                android:layout_below="@+id/p3healthtag"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/p3hp"
+                android:layout_toEndOf="@+id/p3hp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:id="@+id/p3minus1"
-                android:layout_below="@+id/p3healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p3plus1"
                 android:layout_toEndOf="@+id/p3plus1" />
 
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:text="+5"
                 android:id="@+id/p3plus5"
-                android:layout_below="@+id/p3healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p3minus1"
                 android:layout_toEndOf="@+id/p3minus1" />
 
@@ -262,16 +262,16 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:id="@+id/p4plus1"
-                android:layout_below="@+id/p4healthtag"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/p4hp"
+                android:layout_toEndOf="@+id/p4hp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:id="@+id/p4minus1"
-                android:layout_below="@+id/p4healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p4plus1"
                 android:layout_toEndOf="@+id/p4plus1" />
 
@@ -290,7 +290,7 @@
                 android:layout_height="wrap_content"
                 android:text="+5"
                 android:id="@+id/p4plus5"
-                android:layout_below="@+id/p4healthtag"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/p4minus1"
                 android:layout_toEndOf="@+id/p4minus1" />
 

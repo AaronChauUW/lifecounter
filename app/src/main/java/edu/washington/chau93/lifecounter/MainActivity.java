@@ -1,59 +1,60 @@
 package edu.washington.chau93.lifecounter;
 
-import android.app.ActionBar;
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
     private final String TAG = "MainActivity";
+    private final int PLAYER_COUNT = 4;
+    private int[] playersHealth;
+    private int[][] playersIDs = {
+            {R.id.p1hp, R.id.p1plus1, R.id.p1plus5, R.id.p1minus1, R.id.p1minus5},
+            {R.id.p2hp, R.id.p2plus1, R.id.p2plus5, R.id.p2minus1, R.id.p2minus5},
+            {R.id.p3hp, R.id.p3plus1, R.id.p3plus5, R.id.p3minus1, R.id.p3minus5},
+            {R.id.p4hp, R.id.p4plus1, R.id.p4plus5, R.id.p4minus1, R.id.p4minus5}
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set up player 1
-        final TextView p1HealthView = (TextView) findViewById(R.id.p1hp);
-        Button p1BtnPlus1 = (Button) findViewById(R.id.p1plus1);
-        Button p1BtnMinus1 = (Button) findViewById(R.id.p1minus1);
-        Button p1BtnPlus5 = (Button) findViewById(R.id.p1plus5);
-        Button p1BtnMinus5 = (Button) findViewById(R.id.p1minus5);
-        setPlusMinusListeners(1, p1HealthView, p1BtnPlus1, p1BtnMinus1, p1BtnPlus5, p1BtnMinus5);
-
-        // Set up player 2
-        final TextView p2HealthView = (TextView) findViewById(R.id.p2hp);
-        Button p2BtnPlus1 = (Button) findViewById(R.id.p2plus1);
-        Button p2BtnMinus1 = (Button) findViewById(R.id.p2minus1);
-        Button p2BtnPlus5 = (Button) findViewById(R.id.p2plus5);
-        Button p2BtnMinus5 = (Button) findViewById(R.id.p2minus5);
-        setPlusMinusListeners(2, p2HealthView, p2BtnPlus1, p2BtnMinus1, p2BtnPlus5, p2BtnMinus5);
-
-        // Set up player 3
-        final TextView p3HealthView = (TextView) findViewById(R.id.p3hp);
-        Button p3BtnPlus1 = (Button) findViewById(R.id.p3plus1);
-        Button p3BtnMinus1 = (Button) findViewById(R.id.p3minus1);
-        Button p3BtnPlus5 = (Button) findViewById(R.id.p3plus5);
-        Button p3BtnMinus5 = (Button) findViewById(R.id.p3minus5);
-        setPlusMinusListeners(3, p3HealthView, p3BtnPlus1, p3BtnMinus1, p3BtnPlus5, p3BtnMinus5);
-
-        // Set up player 4
-        final TextView p4HealthView = (TextView) findViewById(R.id.p4hp);
-        Button p4BtnPlus1 = (Button) findViewById(R.id.p4plus1);
-        Button p4BtnMinus1 = (Button) findViewById(R.id.p4minus1);
-        Button p4BtnPlus5 = (Button) findViewById(R.id.p4plus5);
-        Button p4BtnMinus5 = (Button) findViewById(R.id.p4minus5);
-        setPlusMinusListeners(4, p4HealthView, p4BtnPlus1, p4BtnMinus1, p4BtnPlus5, p4BtnMinus5);
+        if (savedInstanceState != null){
+            playersHealth = savedInstanceState.getIntArray("playersHP");
+            for(int i = 0; i < playersHealth.length; i++){
+                if(playersHealth[i] <= 0){
+                    disablePlayerBtn(i);
+                }
+            }
+            Log.i(TAG, "Save State playersHp: " + playersHealth.toString());
+        } else {
+            Log.i(TAG, "No save state, creating new playersHp");
+            playersHealth = new int[PLAYER_COUNT];
+            for(int i = 0; i < PLAYER_COUNT; i++){
+                playersHealth[i] = 20;
+            }
+        }
 
 
+
+        for(int i = 0; i < playersIDs.length; i++){
+            final TextView healthView = (TextView) findViewById(playersIDs[i][0]);
+            healthView.setText(playersHealth[i] + "");
+            Button btnPlus1 = (Button) findViewById(playersIDs[i][1]);
+            Button btnPlus5 = (Button) findViewById(playersIDs[i][2]);
+            Button btnMinus1 = (Button) findViewById(playersIDs[i][3]);
+            Button btnMinus5 = (Button) findViewById(playersIDs[i][4]);
+            setPlusMinusListeners(i, healthView, btnPlus1, btnMinus1, btnPlus5, btnMinus5);
+        }
 
     }
 
@@ -88,15 +89,26 @@ public class MainActivity extends ActionBarActivity {
 
     private void modifyHealth(int player, TextView playerText, int value){
         Log.d(TAG, "Player " + player + ": " + value + " button clicked.");
-        int currHealth = Integer.parseInt(playerText.getText().toString());
-        if (currHealth > 0){
-            int newHealth = currHealth + value;
-            playerText.setText("" + newHealth);
-            if(newHealth <= 0){
+        if (playersHealth[player] > 0){
+            playersHealth[player] = playersHealth[player] + value;
+            playerText.setText("" + playersHealth[player]);
+            if(playersHealth[player] <= 0){
                 Log.d(TAG, "Player " + player + " is dead.");
-                TextView loser = (TextView) findViewById(R.id.loser);
-                loser.setText("Player " + player + " LOSES!");
+                disablePlayerBtn(player);
+                Context context = getApplicationContext();
+                Toast.makeText(
+                        context,
+                        "Player " + player + " LOSES!",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
+        }
+    }
+
+    private void disablePlayerBtn(int player) {
+        int[] ids = playersIDs[player];;
+        for(int i = 1; i < ids.length; i++){
+            ((Button) findViewById(ids[i])).setEnabled(false);
         }
     }
 
@@ -121,5 +133,12 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putIntArray("playersHP", playersHealth);
+
+        super.onSaveInstanceState(outState);
     }
 }
